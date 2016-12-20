@@ -18,13 +18,13 @@ services:
             args:
                 - INSTALL_XDEBUG=false
                 - INSTALL_MONGO=false
-                - INSTALL_NODE=false
-                - INSTALL_YARN=false
+                - INSTALL_NODE=true
+                - INSTALL_YARN=true
                 - INSTALL_DRUSH=false
                 - INSTALL_AEROSPIKE_EXTENSION=false
                 - INSTALL_V8JS_EXTENSION=false
                 - COMPOSER_GLOBAL_INSTALL=false
-                - INSTALL_WORKSPACE_SSH=false
+                - INSTALL_WORKSPACE_SSH=true
                 - PUID=1000
                 - PGID=1000
                 - NODE_VERSION=stable
@@ -312,6 +312,22 @@ services:
             - "9300:9300"
         links:
             - php-fpm
+
+### LaravelEchoServer Container #################################
+
+    laravelechoserver:
+        build:
+          context: ./laravel-echo-server
+          args:
+            - NODE_VERSION=stable
+        ports:
+            - 6001:6001
+        volumes_from:
+            - workspace
+        links:
+            - redis
+            - php-fpm
+
 
 ### Volumes Setup ###########################################
 
